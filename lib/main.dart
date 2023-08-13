@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                     filter: ImageFilter.blur(sigmaY: 0, sigmaX: 0),
                     child: Container(
                       color: Colors.white,
-                      height: 70,
+                      height: 60,
                       child: TabBar(
                         indicatorColor: Colors.black26,
                         labelColor: Colors.pinkAccent,
@@ -100,14 +100,12 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                           Tab(
                             icon: Icon(
                               Icons.home_filled,
-                              size: 30.0,
                             ),
                             text: 'Trang chủ',
                           ),
                           Tab(
                             icon: Icon(
                               Icons.person_outline,
-                              size: 30.0,
                             ),
                             text: 'Cá nhân',
                           )

@@ -8,6 +8,7 @@ class Itembanner {
 }
 List<Itembanner> listdatabanner = [
   Itembanner('assets/product/cafe.png','Nước uống'),
+  Itembanner('assets/product/thuocla.png','Thuốc lá'),
   Itembanner('assets/product/bia.png','Bia'),
   Itembanner('assets/product/lua.png','Thức ăn & Lúa'),
   Itembanner('assets/product/gao.png','Gạo'),

@@ -38,7 +38,7 @@ class _ReveMonthState extends State<ReveDay> {
           centerTitle: true,
           toolbarHeight: 60,
           backgroundColor: Colors.white,
-          title: Text('Doanh thu các ngày trước',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.pinkAccent,fontSize: 24),),
+          title: Text('Doanh thu các ngày trước',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.pinkAccent),),
         ),
         body:  Stack(
           children: [
@@ -61,7 +61,7 @@ class _ReveMonthState extends State<ReveDay> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    JumpingText('Chưa có doanh thu cho tháng này....',style: TextStyle(color: Colors.pinkAccent,fontSize: 20),)
+                    JumpingText('Chưa có doanh thu cho ngày này....',style: TextStyle(color: Colors.pinkAccent,fontSize: 18),)
                   ],
                 )) :
             SingleChildScrollView(
@@ -83,7 +83,6 @@ class _ReveMonthState extends State<ReveDay> {
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.pinkAccent.withOpacity(0.4)
                           ),
-                          height: 90,
                           width: double.infinity,
                           margin: EdgeInsets.only(top: 10,left: 5,right: 5,bottom: 5),
                           child: Container(

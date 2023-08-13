@@ -22,6 +22,10 @@ class Homemodel extends ChangeNotifier{
     isLoading = false;
     notifyListeners();
   }
+  Future<void> clear() async {
+    clearproduct();
+    notifyListeners();
+  }
 
   void clearproduct()  {
     listmodel.forEach((element) {
@@ -29,8 +33,6 @@ class Homemodel extends ChangeNotifier{
         product.quantity = 0;
       });
     });
-    isLoading = false;
-    notifyListeners();
   }
 
   List<Product> choseproduct()  {

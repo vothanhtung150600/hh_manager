@@ -41,7 +41,7 @@ class _ReveMonthState extends State<ReveMonth> {
           centerTitle: true,
           toolbarHeight: 60,
           backgroundColor: Colors.white,
-          title: Text('Doanh thu các tháng ${DateTime.now().year}',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.pinkAccent,fontSize: 24),),
+          title: Text('Doanh thu các tháng ${DateTime.now().year}',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.pinkAccent),),
         ),
         body:  Stack(
           children: [
@@ -85,7 +85,6 @@ class _ReveMonthState extends State<ReveMonth> {
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.green.withOpacity(0.4)
                           ),
-                          height: 120,
                           width: double.infinity,
                           margin: EdgeInsets.only(top: 10,left: 5,right: 5,bottom: 5),
                           child: Container(

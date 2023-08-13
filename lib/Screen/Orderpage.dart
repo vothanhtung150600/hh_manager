@@ -16,7 +16,7 @@ import '../router.dart';
 
 
 
-
+bool insert = false;
 
 class OrderPage extends StatefulWidget {
   int sumquantity;
@@ -70,11 +70,12 @@ class _OrderPageState extends State<OrderPage> {
                             onPressOK: () async {
                               insertdata(widget.total,DateTime.now(),widget.listdata);
                               Navigator.pop(context);
+                              await modelmoney!.refesh();
+                              model.clearproduct();
+                              await Navigator.of(context).pushReplacementNamed(RouteName.tab).then((value) {setState(() {
+                              });});
                             },
                           );
-                          await modelmoney!.refesh();
-                          model!.clearproduct();
-                          await Navigator.of(context).pushReplacementNamed(RouteName.tab);
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -134,13 +135,13 @@ class _OrderPageState extends State<OrderPage> {
                             },
                             child: Container(
                               alignment: Alignment.center,
-                              height: 40,
-                              width: 80,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.pinkAccent.withOpacity(0.6)
                               ),
-                              child: Text('Thêm',style: TextStyle(fontSize: 18)),
+                              child: Container(
+                                margin: EdgeInsets.all(10),
+                                  child: Text('Thêm',style: TextStyle(fontSize: 18))),
                             ),
                           )
                         ],
@@ -183,8 +184,6 @@ class _OrderPageState extends State<OrderPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         LoadingWidget(),
-                        SizedBox(height: 20,),
-                        JumpingText('Loading...',style: TextStyle(color: Colors.pinkAccent,fontSize: 14),)
                       ],
                     ))
             )

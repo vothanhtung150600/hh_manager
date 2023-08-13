@@ -17,6 +17,7 @@ import '../Model/provider_model.dart';
 import '../dialog/showdialog.dart';
 import 'package:intl/intl.dart';
 
+import '../router.dart';
 import '../utils/loading_widget.dart';
 import 'More/more_reveday.dart';
 
@@ -32,17 +33,22 @@ class MoneyPage extends StatefulWidget {
 class _MoneyPageState extends State<MoneyPage> {
   final _scrollController = ScrollController();
   final formatter = NumberFormat('###,###,###');
+  Moneymodel? model;
   @override
   void initState() {
-
     // TODO: implement initState
     super.initState();
   }
-
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    model = Provider.of<Moneymodel>(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Moneymodel model = Provider.of<Moneymodel>(context);
+    model = Provider.of<Moneymodel>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -71,8 +77,8 @@ class _MoneyPageState extends State<MoneyPage> {
                 controller: _scrollController,
                 physics: AlwaysScrollableScrollPhysics(),
                 child: Skeletonizer(
-                  enabled: model.isLoading,
-                  child: model.isLoading ?
+                  enabled: model!.isLoading,
+                  child: model!.isLoading ?
                   Column(
                     children: [
                       Container(
@@ -80,7 +86,7 @@ class _MoneyPageState extends State<MoneyPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.green.withOpacity(0.4)
                         ),
-                        height: 130,
+                        height: 120,
                         width: double.infinity,
                         margin: EdgeInsets.only(top: 10,left: 5,right: 5),
                         child: Container(
@@ -91,7 +97,7 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Doanh thu Tháng ${DateTime.now().month}: ',style: TextStyle(fontSize: 20),),
+                                  Text('Doanh thu Tháng ${DateTime.now().month}: ',style: TextStyle(fontSize: 18),),
                                   Container(
                                     child: Text('${DateTime.now().month}/${DateTime.now().year}',style: TextStyle(fontSize: 18),),
                                   ),
@@ -100,9 +106,9 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text('${formatter.format(num.parse(model.moneymonth(DateTime.now().month).toString()))}',style: TextStyle(fontSize: 25),),
+                                  Text('${formatter.format(num.parse(model!.moneymonth(DateTime.now().month).toString()))}',style: TextStyle(fontSize: 22),),
                                   SizedBox(width: 10,),
-                                  Text('VND',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),),
+                                  Text('VND',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700),),
 
                                 ],
                               ),
@@ -112,7 +118,9 @@ class _MoneyPageState extends State<MoneyPage> {
                                   GestureDetector(
                                     onTap:(){
                                       var now = new DateTime.now();
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMonth(month: now.month),));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMonth(month: now.month),)).then((value) {setState(() {
+
+                                      });});
                                     },
                                     child: Container(
                                       child: Text('Xem chi tiết',style: TextStyle(fontSize: 18,color: Colors.blue),),
@@ -129,7 +137,7 @@ class _MoneyPageState extends State<MoneyPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.pinkAccent.withOpacity(0.4)
                         ),
-                        height: 150,
+                        height: 120,
                         width: double.infinity,
                         margin: EdgeInsets.only(top: 20,left: 5,right: 5),
                         child: Container(
@@ -140,7 +148,7 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Doanh thu hôm nay: ',style: TextStyle(fontSize: 20),),
+                                  Text('Doanh thu hôm nay: ',style: TextStyle(fontSize: 18),),
                                   Container(
                                     child: Text('${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',style: TextStyle(fontSize: 18),),
                                   ),
@@ -149,9 +157,9 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text('${formatter.format(num.parse(model.moneytoday().toString()))}',style: TextStyle(fontSize: 25),),
+                                  Text('${formatter.format(num.parse(model!.moneytoday().toString()))}',style: TextStyle(fontSize: 22),),
                                   SizedBox(width: 10,),
-                                  Text('VND',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),),
+                                  Text('VND',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700),),
                                 ],
                               ),
                               Row(
@@ -160,7 +168,9 @@ class _MoneyPageState extends State<MoneyPage> {
                                     onTap:(){
                                       var now = new DateTime.now();
                                       var curentime = new DateTime(now.year,now.month,now.day);
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMoney(dateTime: curentime,money: model.moneytoday()),));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMoney(dateTime: curentime,money: model!.moneytoday()),)).then((value) {setState(() {
+
+                                      });});
                                     },
                                     child: Container(
                                       child: Text('Xem chi tiết',style: TextStyle(fontSize: 18,color: Colors.blue),),
@@ -175,24 +185,26 @@ class _MoneyPageState extends State<MoneyPage> {
                       GestureDetector(
                         onTap: () {
                           var now = new DateTime.now();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReveDay(),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReveDay(),)).then((value) {setState(() {
+
+                          });});
                         },
                         child: Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 20,left: 5,right: 5),
+                          margin: EdgeInsets.only(top: 15,left: 5,right: 5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.pinkAccent
+                              color: Colors.pinkAccent.withOpacity(0.5)
                           ),
-                          height: 60,
+                          height: 40,
                           width: double.infinity,
                           child: Container(
                             margin: EdgeInsets.only(left: 10,right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Doanh thu các ngày trước',style: TextStyle(fontSize: 20,color: Colors.white),),
-                                Icon(Icons.navigate_next,size: 35,color: Colors.white,)
+                                Text('Doanh thu các ngày trước',style: TextStyle(fontSize: 18,color: Colors.black),),
+                                Icon(Icons.navigate_next,size: 35,color: Colors.black,)
                               ],
                             ),
                           ),
@@ -202,49 +214,53 @@ class _MoneyPageState extends State<MoneyPage> {
                         onTap: () {
                           var now = new DateTime.now();
                           var curentime = new DateTime(now.year,now.month,now.day);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReveMonth(dateTime: curentime),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReveMonth(dateTime: curentime),)).then((value) {setState(() {
+
+                          });});
                         },
                         child: Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.only(top: 20,left: 5,right: 5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.pinkAccent
+                              color: Colors.pinkAccent.withOpacity(0.5)
                           ),
-                          height: 60,
+                          height: 40,
                           width: double.infinity,
                           child: Container(
                             margin: EdgeInsets.only(left: 10,right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Doanh thu các Tháng',style: TextStyle(fontSize: 20,color: Colors.white),),
-                                Icon(Icons.navigate_next,size: 35,color: Colors.white,)
+                                Text('Doanh thu các Tháng',style: TextStyle(fontSize: 18,color: Colors.black),),
+                                Icon(Icons.navigate_next,size: 35,color: Colors.black,)
                               ],
                             ),
                           ),
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen(),));
+                        onTap: () async{
+                          await Navigator.of(context).pushReplacementNamed(RouteName.update).then((value) {setState(() {
+
+                          });});
                         },
                         child: Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.only(top: 20,left: 5,right: 5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.pinkAccent
+                              color: Colors.pinkAccent.withOpacity(0.5)
                           ),
-                          height: 60,
+                          height: 40,
                           width: double.infinity,
                           child: Container(
                             margin: EdgeInsets.only(left: 10,right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Chỉnh sửa',style: TextStyle(fontSize: 20,color: Colors.white),),
-                                Icon(Icons.navigate_next,size: 35,color: Colors.white,)
+                                Text('Chỉnh sửa',style: TextStyle(fontSize: 18,color: Colors.black),),
+                                Icon(Icons.navigate_next,size: 35,color: Colors.black,)
                               ],
                             ),
                           ),
@@ -260,7 +276,7 @@ class _MoneyPageState extends State<MoneyPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.green.withOpacity(0.4)
                         ),
-                        height: 130,
+                        height: 120,
                         width: double.infinity,
                         margin: EdgeInsets.only(top: 10,left: 5,right: 5),
                         child: Container(
@@ -271,7 +287,7 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Doanh thu Tháng ${DateTime.now().month}: ',style: TextStyle(fontSize: 20),),
+                                  Text('Doanh thu Tháng ${DateTime.now().month}: ',style: TextStyle(fontSize: 18),),
                                   Container(
                                     child: Text('${DateTime.now().month}/${DateTime.now().year}',style: TextStyle(fontSize: 18),),
                                   ),
@@ -280,9 +296,9 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text('${formatter.format(num.parse(model.moneymonth(DateTime.now().month).toString()))}',style: TextStyle(fontSize: 25),),
+                                  Text('${formatter.format(num.parse(model!.moneymonth(DateTime.now().month).toString()))}',style: TextStyle(fontSize: 22),),
                                   SizedBox(width: 10,),
-                                  Text('VND',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),),
+                                  Text('VND',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700),),
 
                                 ],
                               ),
@@ -292,7 +308,9 @@ class _MoneyPageState extends State<MoneyPage> {
                                   GestureDetector(
                                     onTap:(){
                                       var now = new DateTime.now();
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMonth(month: now.month),));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMonth(month: now.month),)).then((value) {setState(() {
+
+                                      });});
                                     },
                                     child: Container(
                                       child: Text('Xem chi tiết',style: TextStyle(fontSize: 18,color: Colors.blue),),
@@ -309,7 +327,7 @@ class _MoneyPageState extends State<MoneyPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.pinkAccent.withOpacity(0.4)
                         ),
-                        height: 150,
+                        height: 120,
                         width: double.infinity,
                         margin: EdgeInsets.only(top: 20,left: 5,right: 5),
                         child: Container(
@@ -320,7 +338,7 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Doanh thu hôm nay: ',style: TextStyle(fontSize: 20),),
+                                  Text('Doanh thu hôm nay: ',style: TextStyle(fontSize: 18),),
                                   Container(
                                     child: Text('${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',style: TextStyle(fontSize: 18),),
                                   ),
@@ -329,9 +347,9 @@ class _MoneyPageState extends State<MoneyPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text('${formatter.format(num.parse(model.moneytoday().toString()))}',style: TextStyle(fontSize: 25),),
+                                  Text('${formatter.format(num.parse(model!.moneytoday().toString()))}',style: TextStyle(fontSize: 22),),
                                   SizedBox(width: 10,),
-                                  Text('VND',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),),
+                                  Text('VND',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700),),
                                 ],
                               ),
                               Row(
@@ -340,7 +358,9 @@ class _MoneyPageState extends State<MoneyPage> {
                                     onTap:(){
                                       var now = new DateTime.now();
                                       var curentime = new DateTime(now.year,now.month,now.day);
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMoney(dateTime: curentime,money: model.moneytoday()),));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MoreMoney(dateTime: curentime,money: model!.moneytoday()),)).then((value) {setState(() {
+
+                                      });});
                                     },
                                     child: Container(
                                       child: Text('Xem chi tiết',style: TextStyle(fontSize: 18,color: Colors.blue),),
@@ -352,80 +372,85 @@ class _MoneyPageState extends State<MoneyPage> {
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 20,left: 5,right: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.pinkAccent
-                        ),
-                        height: 60,
-                        width: double.infinity,
-                        child: GestureDetector(
-                          onTap: () {
-                            var now = new DateTime.now();
-                            var curentime = new DateTime(now.year,now.month,now.day);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ReveDay(),));
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          var now = new DateTime.now();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReveDay(),)).then((value) {setState(() {
+
+                          });});
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(top: 15,left: 5,right: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.pinkAccent.withOpacity(0.5)
+                          ),
+                          height: 40,
+                          width: double.infinity,
                           child: Container(
                             margin: EdgeInsets.only(left: 10,right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Doanh thu các ngày trước',style: TextStyle(fontSize: 20,color: Colors.white),),
-                                Icon(Icons.navigate_next,size: 35,color: Colors.white,)
+                                Text('Doanh thu các ngày trước',style: TextStyle(fontSize: 18,color: Colors.black),),
+                                Icon(Icons.navigate_next,size: 35,color: Colors.black,)
                               ],
                             ),
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 20,left: 5,right: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.pinkAccent
-                        ),
-                        height: 60,
-                        width: double.infinity,
-                        child: GestureDetector(
-                          onTap: () {
-                            var now = new DateTime.now();
-                            var curentime = new DateTime(now.year,now.month,now.day);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ReveMonth(dateTime: curentime),));
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          var now = new DateTime.now();
+                          var curentime = new DateTime(now.year,now.month,now.day);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReveMonth(dateTime: curentime),)).then((value) {setState(() {
+
+                          });});
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(top: 20,left: 5,right: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.pinkAccent.withOpacity(0.5)
+                          ),
+                          height: 40,
+                          width: double.infinity,
                           child: Container(
                             margin: EdgeInsets.only(left: 10,right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Doanh thu các Tháng',style: TextStyle(fontSize: 20,color: Colors.white),),
-                                Icon(Icons.navigate_next,size: 35,color: Colors.white,)
+                                Text('Doanh thu các Tháng',style: TextStyle(fontSize: 18,color: Colors.black),),
+                                Icon(Icons.navigate_next,size: 35,color: Colors.black,)
                               ],
                             ),
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 20,left: 5,right: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.pinkAccent
-                        ),
-                        height: 60,
-                        width: double.infinity,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen(),));
-                          },
+                      GestureDetector(
+                        onTap: () async{
+                          await Navigator.of(context).pushReplacementNamed(RouteName.update).then((value) {setState(() {
+
+                          });});
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(top: 20,left: 5,right: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.pinkAccent.withOpacity(0.5)
+                          ),
+                          height: 40,
+                          width: double.infinity,
                           child: Container(
                             margin: EdgeInsets.only(left: 10,right: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Chỉnh sửa',style: TextStyle(fontSize: 20,color: Colors.white),),
-                                Icon(Icons.navigate_next,size: 35,color: Colors.white,)
+                                Text('Chỉnh sửa',style: TextStyle(fontSize: 18,color: Colors.black),),
+                                Icon(Icons.navigate_next,size: 35,color: Colors.black,)
                               ],
                             ),
                           ),
@@ -436,7 +461,7 @@ class _MoneyPageState extends State<MoneyPage> {
                 ),
               ),
               onRefresh: () async{
-               await model.refesh();
+               await model!.refesh();
               },
             )
           ],

@@ -18,7 +18,7 @@ class MongoDB {
     List<ModelData> result = [];
     var product = await collection.find().toList();
     if(product != null){
-      var listtype = ['Nước giải khát','Bia','Thức ăn & Lúa','Gạo','Bắp','Tấm'];
+      var listtype = ['Nước giải khát','Thuốc Lá','Bia','Thức ăn & Lúa','Gạo','Bắp','Tấm'];
       var data = listtype.map((type) => {
         "type" : type,
         "data" : product.where((element) => element['type'] == type).toList()

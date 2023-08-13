@@ -165,16 +165,12 @@ Future messageAccess(context, String message,{ Function? onPressOK, Function? on
                         child: Column(
                           children: [
                             Container(
-                              height: 50,
                               padding: EdgeInsets.all(5),
                               child: Text(
                                 message,
-                                maxLines: 20,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 18,
                                     color: Colors.black,
-                                    height: 1.2
                                 ),
                               ),
                             ),
@@ -196,11 +192,9 @@ Future messageAccess(context, String message,{ Function? onPressOK, Function? on
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             margin: EdgeInsets.only(bottom: 10),
-                            height: 40,width: 100,
                             child: TextButton(
                               child: Text('Chưa',
                                   style: TextStyle(
-                                      fontSize: 16,
                                       color: Colors.white,
                                       letterSpacing: 0.05,
                                       fontWeight: FontWeight.w700
@@ -220,11 +214,9 @@ Future messageAccess(context, String message,{ Function? onPressOK, Function? on
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             margin: EdgeInsets.only(bottom: 10),
-                            height: 40,width: 100,
                             child: TextButton(
                               child: Text('OK',
                                   style: TextStyle(
-                                      fontSize: 16,
                                       color: Colors.white,
                                       letterSpacing: 0.05,
                                       fontWeight: FontWeight.w700

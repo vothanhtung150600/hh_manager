@@ -11,6 +11,9 @@ class Moneymodel extends ChangeNotifier{
   List<Datamonth> listmonth = [];
   bool isLoading = false;
   List<Revenue> listdatamore = [];
+  List<ModelData> listmodel = [];
+
+
 
   Future<void> loaddatamoney() async {
     isLoading = true;

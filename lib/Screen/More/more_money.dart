@@ -36,9 +36,8 @@ class _MoreMoneyState extends State<MoreMoney> {
               ),
             ),
             centerTitle: true,
-            toolbarHeight: 60,
             backgroundColor: Colors.white,
-            title: Text('Doanh thu ngày ${widget.dateTime.day}/${widget.dateTime.month}',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.pinkAccent,fontSize: 24),),
+            title: Text('Doanh thu ngày ${widget.dateTime.day}/${widget.dateTime.month}',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.pinkAccent),),
           ),
           body:  Stack(
             children: [
@@ -61,7 +60,7 @@ class _MoreMoneyState extends State<MoreMoney> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      JumpingText('Chưa có doanh thu cho hôm nay...',style: TextStyle(color: Colors.pinkAccent,fontSize: 20),)
+                      JumpingText('Chưa có doanh thu cho hôm nay...',style: TextStyle(color: Colors.pinkAccent,fontSize: 16),)
                     ],
                   )) :
               SingleChildScrollView(
